@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.List;
+
 @Service
 public class ExperimentService {
 
@@ -56,6 +58,10 @@ public class ExperimentService {
     // ─────────────────────────────────────────────
     //  찬영 : Delete (soft delete)
     // ─────────────────────────────────────────────
+
+    public List<ExperimentLog> findAllNotDeleted() {
+        return repository.findAllByDeletedFalse();
+    }
 
     @Transactional  // 메서드가 끝날 때 변경 내용을 DB에 자동 커밋
     public void softDelete(Long id) {

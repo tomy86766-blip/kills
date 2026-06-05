@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller   // ← RestController 아님! 화면 이름을 반환
@@ -36,18 +35,4 @@ public class ExperimentViewController {
         return "redirect:/experiments";   // 저장 후 목록으로 (윤서 Read 페이지)
     }
 
-    // ─────────────────────────────────────────────
-    //  찬영 : Delete (soft delete)
-    // ─────────────────────────────────────────────
-
-    // HTML <form> 은 GET/POST 만 지원하므로 POST 로 받음
-    // URL 예시: POST /experiments/3/delete
-    @PostMapping("/experiments/{id}/delete")
-    public String delete(@PathVariable Long id) {
-        // {id} 자리 숫자를 Long 으로 받아서 서비스에 넘김
-        service.softDelete(id);
-
-        // 삭제 후 목록 페이지로 돌아감 (redirect: 는 새 GET 요청을 보내는 것)
-        return "redirect:/experiments";
-    }
 }
